@@ -1,0 +1,11 @@
+# local agent worktrees (never published)
+.claude/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+
+# tooling
+node_modules/
