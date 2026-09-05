@@ -1,0 +1,277 @@
+/* ResOT Project Page — 样式
+   仅使用系统字体，不加载任何外部资源（无 CDN、无 Web Font），
+   保证在任意网络环境下都能完整、快速地渲染。 */
+
+:root {
+  --bg:          #ffffff;
+  --bg-hero:     #fafbfc;
+  --fg:          #1a1e24;
+  --fg-soft:     #33393f;
+  --muted:       #5c646d;
+  --line:        #e4e7eb;
+  --accent:      #14548f;
+  --pill:        #23272d;
+  --pill-hover:  #000000;
+  --maxw:        820px;
+  --maxw-hero:   960px;
+  --maxw-wide:   1080px;
+
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+               "Noto Sans", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--accent); }
+
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+.wrap--wide { max-width: var(--maxw-wide); }
+.hero .wrap { max-width: var(--maxw-hero); }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus {
+  left: 12px; top: 12px;
+  z-index: 10;
+  background: #fff;
+  padding: .5rem .9rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+/* ---------------------------------------------------------------- hero -- */
+
+.hero {
+  background: var(--bg-hero);
+  border-bottom: 1px solid var(--line);
+  padding: clamp(2.75rem, 6vw, 4.5rem) 0 clamp(2.25rem, 5vw, 3.25rem);
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 .9rem;
+  font-size: .8125rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.title {
+  margin: 0 auto;
+  max-width: 24em;
+  font-size: clamp(1.6rem, 1.05rem + 2.5vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: -.015em;
+  text-wrap: balance;
+}
+
+.br-lg { display: none; }
+
+.venue {
+  margin: 1rem 0 0;
+  font-size: .9375rem;
+  color: var(--muted);
+}
+
+.authors {
+  max-width: 46em;
+  margin-inline: auto;
+  margin-top: 1.5rem;
+  font-size: 1.0625rem;
+  line-height: 1.9;
+  color: var(--fg-soft);
+}
+.authors a { text-decoration: none; border-bottom: 1px solid rgba(20, 84, 143, .3); }
+.authors a:hover { border-bottom-color: var(--accent); }
+.authors .sep { color: var(--muted); }
+.authors sup { font-size: .72em; padding-left: .1em; color: var(--muted); }
+.authors-placeholder { color: var(--muted); font-style: italic; }
+
+.affiliations {
+  margin: .35rem 0 0;
+  font-size: .9375rem;
+  color: var(--muted);
+}
+.affiliations sup { padding-right: .15em; }
+
+.author-notes {
+  margin: .45rem 0 0;
+  font-size: .875rem;
+  color: var(--muted);
+}
+
+/* -------------------------------------------------------------- status -- */
+
+.status { margin: 1.5rem 0 0; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .38rem .95rem;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.badge::before {
+  content: "";
+  flex: none;
+  width: .5rem; height: .5rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+.badge[data-status="coming-soon"]   { color: #5c646d; background: #f2f4f6; border-color: #e0e4e8; }
+.badge[data-status="arxiv-pending"] { color: #96590f; background: #fdf5e7; border-color: #f0dfc1; }
+.badge[data-status="published"]     { color: #17603a; background: #edf7f1; border-color: #cbe6d8; }
+
+/* --------------------------------------------------------------- links -- */
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .6rem;
+  margin-top: 1.55rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .48rem;
+  padding: .55rem 1.1rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: .9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+.btn svg { flex: none; width: 1em; height: 1em; }
+
+.btn--active { background: var(--pill); color: #fff; }
+.btn--active:hover, .btn--active:focus-visible { background: var(--pill-hover); }
+
+.btn--pending {
+  background: #f4f5f7;
+  color: #79818b;
+  border-color: var(--line);
+  cursor: default;
+}
+
+.noscript {
+  max-width: 40em;
+  margin: 1.5rem auto 0;
+  font-size: .9375rem;
+  color: var(--muted);
+}
+
+/* -------------------------------------------------------------- teaser -- */
+
+.teaser {
+  margin: clamp(2rem, 4vw, 3rem) auto 0;
+}
+.teaser a {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+.teaser figcaption,
+.status-figure figcaption {
+  margin-top: .85rem;
+  font-size: .9375rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ------------------------------------------------------------ sections -- */
+
+.section { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+
+.section h2 {
+  margin: 0 0 1rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -.005em;
+  text-align: center;
+}
+
+.abstract-body {
+  margin: 0;
+  color: var(--fg-soft);
+  line-height: 1.78;
+}
+
+.status-figure { margin: 0; }
+.status-figure img {
+  margin-inline: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+/* -------------------------------------------------------------- footer -- */
+
+.footer {
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  padding: 1.75rem 0 2.5rem;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+.footer-title {
+  margin: 0;
+  font-size: .9375rem;
+  font-weight: 600;
+  color: var(--fg-soft);
+}
+.footer-note {
+  margin: .35rem 0 0;
+  font-size: .875rem;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------- breakpoints -- */
+
+@media (min-width: 760px) {
+  .br-lg { display: inline; }
+  .abstract-body { text-align: justify; hyphens: auto; }
+}
+
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  .wrap { padding-inline: 18px; }
+  .btn { padding: .5rem .9rem; font-size: .875rem; }
+  .badge { font-size: .8125rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+.nobr { white-space: nowrap; }

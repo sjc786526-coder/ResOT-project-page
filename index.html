@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ResOT — From Suppression to Repair: Mitigating Hallucination in Large Vision-Language Models via Localized Distribution Alignment</title>
+<meta name="description" content="Project page for ResOT, a training-free inference-time method that mitigates object hallucination in large vision-language models by replacing suppression with localized distribution repair.">
+<meta name="author" content="The ResOT Authors">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+<!-- 社交预览。仅这几行使用绝对地址；如果仓库改名或迁移，需要同步更新（见 README）。 -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ResOT Project Page">
+<meta property="og:title" content="ResOT — From Suppression to Repair">
+<meta property="og:description" content="A training-free inference-time method that mitigates object hallucination in large vision-language models by replacing suppression with localized distribution repair.">
+<meta property="og:url" content="https://sjc786526-coder.github.io/ResOT-project-page/">
+<meta property="og:image" content="https://sjc786526-coder.github.io/ResOT-project-page/assets/img/resot-overview.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/js/config.js"></script>
+</head>
+
+<body>
+<a class="skip-link" href="#abstract">Skip to abstract</a>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">ResOT</p>
+
+    <h1 class="title">
+      From Suppression to Repair:<br class="br-lg">
+      Mitigating Hallucination in Large <span class="nobr">Vision-Language</span> Models
+      via Localized Distribution Alignment
+    </h1>
+
+    <p class="venue" id="venue" hidden></p>
+
+    <div class="authors" id="authors"></div>
+    <p class="affiliations" id="affiliations" hidden></p>
+    <p class="author-notes" id="author-notes" hidden></p>
+
+    <p class="status" id="status"></p>
+
+    <nav class="links" id="links" aria-label="Paper resources"></nav>
+
+    <noscript>
+      <p class="noscript">
+        This page uses a small amount of JavaScript to render the current paper status and
+        resource links. With JavaScript disabled, please refer to the repository README for
+        the up-to-date status of the preprint.
+      </p>
+    </noscript>
+  </div>
+</header>
+
+<main>
+  <figure class="teaser wrap wrap--wide">
+    <a href="assets/img/resot-overview.png" aria-label="Open the overview figure at full resolution">
+      <img src="assets/img/resot-overview.png" width="2200" height="1113" decoding="async"
+           alt="Overview of ResOT in three stages: calibration and residual subspace extraction, Gaussian optimal transport in residual coordinates, and inference-time residual repair.">
+    </a>
+    <figcaption>Overview of <strong>ResOT</strong>.</figcaption>
+  </figure>
+
+  <section class="section wrap" id="abstract" aria-labelledby="abstract-h">
+    <h2 id="abstract-h">Abstract</h2>
+    <p class="abstract-body">
+      Object hallucination in large vision-language models (LVLMs) remains a major obstacle to
+      trustworthy generation. An intuitive mitigation strategy is to suppress the components in
+      the representations that are associated with hallucinations. However, since these components
+      may also contain useful visual-semantic information, directly suppressing them can impair the
+      model&rsquo;s multimodal capabilities. We therefore propose <strong>ResOT</strong>, a
+      training-free inference-time method that replaces suppression with localized distribution
+      repair. Specifically, ResOT confines repair to a low-dimensional residual subspace that
+      captures hallucination-associated structures not explained by the principal subspace of
+      faithful representations. In this subspace, a closed-form Gaussian optimal transport (OT) map
+      aligns the hallucinated distribution with the faithful one while minimizing displacement. At
+      inference, ResOT adjusts the repair strength for each token state based on its hallucination
+      tendency. Across multiple benchmarks and three representative LVLMs, ResOT achieves the best
+      overall performance in hallucination mitigation and captioning among the compared methods. It
+      also improves multimodal performance over the corresponding vanilla LVLMs while incurring low
+      inference overhead.
+    </p>
+  </section>
+
+  <!-- 可选区块：论文状态截图。config.statusNote.enabled 为 false 时整块不渲染。 -->
+  <section class="section wrap" id="status-note" hidden aria-labelledby="status-note-h">
+    <h2 id="status-note-h">Paper Status</h2>
+    <figure class="status-figure">
+      <img id="status-note-img" src="" alt="" decoding="async">
+      <figcaption id="status-note-caption"></figcaption>
+    </figure>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p class="footer-title">ResOT &mdash; Project Page</p>
+    <p class="footer-note" id="footer-note"></p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
