@@ -130,8 +130,11 @@ venue: 'Submitted to ICLR 2027',
 
 ### 6. 论文 PDF 直链（当前为 ICLR 投稿版）
 
-页面上有一个 **Paper (PDF)** 按钮，点开在新标签页里用浏览器自带的阅读器打开论文，
+页面上有一个 **ICLR Submission (PDF)** 按钮，点开在新标签页里用浏览器自带的阅读器打开论文，
 效果和 arXiv 的 PDF 链接一样。
+
+按钮文案点名了是 ICLR 投稿版而不是笼统的 "Paper" —— 因为 arXiv 公开后两个按钮会并排，
+读者需要一眼看出哪个是哪个。
 
 这份 PDF 和 arXiv preprint 是两份不同的东西（一个是投给 ICLR 的版本，一个是 arXiv 预印本），
 所以 **arXiv 公开之后这个按钮不会消失**，两个按钮会并列显示，各指各的版本。
@@ -143,13 +146,15 @@ venue: 'Submitted to ICLR 2027',
 paperPdf: {
   enabled: true,
   src: 'assets/paper/resot-paper.pdf',
-  label: 'Paper (PDF)',
-  note: 'The linked PDF is the version submitted to ICLR 2027, anonymized for double-blind review.',
+  label: 'ICLR Submission (PDF)',
+  note: 'Anonymized version submitted to ICLR 2027 for double-blind review.',
 },
 ```
 
+`label` 是按钮文案，`note` 是按钮下方那行小字，补充按钮放不下的信息（这里是“作者匿名”）。
 `note` 留成空字符串 `''` 则只显示按钮、不显示说明。
-**换成非匿名的 preprint 版本时，记得把这句话一起改掉**，否则说明会和文件对不上。
+
+**换成非匿名的 preprint 版本时，`label` 和 `note` 都要跟着改**，否则文案会和文件对不上。
 
 **换新版论文**：把新 PDF 覆盖到 `assets/paper/resot-paper.pdf`（文件名保持不变），
 提交推送即可，`config.js` 和代码都不用动 —— `src` 是全站唯一写死 PDF 路径的地方。

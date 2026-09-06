@@ -88,16 +88,19 @@ window.RESOT_CONFIG = {
    *    换新版论文：把新 PDF 覆盖到下面 src 指向的那个文件即可（保持文件名不变），
    *    这里和代码都不用改。src 是全站唯一写死 PDF 路径的地方。
    *
-   *    note 是按钮下方的一行版本说明，用来讲清楚这份 PDF 是哪个版本。
-   *    留空字符串则不显示这一行。换成非匿名 preprint 版时记得同步改这句话。
+   *    label 是按钮文案。arXiv 按钮日后也会出现，两者并排时按钮本身要能分辨，
+   *    所以这里点名是 ICLR 投稿版，而不是笼统的 "Paper"。
+   *
+   *    note 是按钮下方的一行版本说明，补充按钮放不下的信息（这里是“作者匿名”）。
+   *    留空字符串则不显示这一行。换成非匿名 preprint 版时，label 和 note 都要改。
    *
    *    enabled 为 false 或文件缺失时，按钮和说明都不出现，页面不留任何痕迹。
    * ------------------------------------------------------------------- */
   paperPdf: {
     enabled: true,
     src: 'assets/paper/resot-paper.pdf',
-    label: 'Paper (PDF)',
-    note: 'The linked PDF is the version submitted to ICLR 2027, anonymized for double-blind review.',
+    label: 'ICLR Submission (PDF)',
+    note: 'Anonymized version submitted to ICLR 2027 for double-blind review.',
   },
 
   /* ---------------------------------------------------------------------
