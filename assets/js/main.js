@@ -126,14 +126,17 @@
   /* 本地论文 PDF 直链（当前是 ICLR 投稿版）。
      它和 arXiv preprint 是两份不同的东西，因此 arXiv 公开后这个按钮不会撤下，
      两者并列显示，各自指向各自的版本。
-     未启用或没填 src 时整个按钮不出现，不留空位。 */
+     enabled、src、label 缺任何一个都视为配置不完整，整个按钮不出现，不留空位。
+     label 是必填项：这里不设兜底文案，因为兜底只能写死某个具体版本
+     （"Paper" 太笼统，"ICLR Submission" 则是把投稿去向这个事实断言写进渲染逻辑，
+     日后改投别处就会变成假话）。文案属于配置，缺了就别渲染。 */
   var pdf = cfg.paperPdf || {};
-  var showPdf = !!(pdf.enabled && pdf.src);
+  var showPdf = !!(pdf.enabled && pdf.src && pdf.label);
 
   var linkHost = $('links');
   if (linkHost) {
     linkHost.innerHTML = [
-      showPdf ? button(pdf.src, pdf.label || 'Paper (PDF)', ICON.paper) : '',
+      showPdf ? button(pdf.src, pdf.label, ICON.paper) : '',
       button(links.arxiv, links.arxiv ? 'arXiv' : (preset.arxivButton || 'arXiv'), ICON.arxiv),
       button(links.code, links.code ? 'Code' : (cfg.codeButtonPending || 'Code'), ICON.code)
     ].join('');
