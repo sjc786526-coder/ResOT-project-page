@@ -5,10 +5,28 @@
   'use strict';
 
   var cfg = window.RESOT_CONFIG || {};
+  var links = cfg.links || {};
   var presets = cfg.statusPresets || {};
-  var preset = presets[cfg.status] || presets['coming-soon'] || {};
+
+  /* status 与 links.arxiv 必须自洽：只写了 'published' 却没填链接时，
+     退回“已提交、待公开”，页面不做没有依据的断言。 */
+  var status = cfg.status;
+  if (status === 'published' && !links.arxiv) status = 'arxiv-pending';
+
+  var preset = presets[status] || presets['coming-soon'] || {};
 
   function $(id) { return document.getElementById(id); }
+
+  /* config.js 里的内容都是普通文本，拼进 HTML 前统一转义，
+     这样作者名、单位名、链接里出现 & < > " ' 也不会弄坏页面。 */
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
 
   function show(el, html) {
     if (!el) return;
@@ -25,7 +43,7 @@
 
   /* ---------------------------------------------------------- venue ---- */
 
-  if (cfg.venue) show($('venue'), String(cfg.venue));
+  if (cfg.venue) show($('venue'), esc(cfg.venue));
 
   /* -------------------------------------------------- authors / affil -- */
 
@@ -44,7 +62,7 @@
     var authors = cfg.authors || [];
     if (!authors.length) {
       host.innerHTML = '<p class="authors-placeholder">' +
-        (cfg.authorsPlaceholder || '') + '</p>';
+        esc(cfg.authorsPlaceholder) + '</p>';
       return;
     }
 
@@ -53,8 +71,8 @@
 
     host.innerHTML = authors.map(function (a) {
       var name = a.url
-        ? '<a href="' + a.url + '" target="_blank" rel="noopener">' + a.name + '</a>'
-        : a.name;
+        ? '<a href="' + esc(a.url) + '" target="_blank" rel="noopener">' + esc(a.name) + '</a>'
+        : esc(a.name);
 
       var marks = [];
       if (multiAff) {
@@ -62,7 +80,7 @@
           if (order[id]) marks.push(order[id]);
         });
       }
-      if (a.note) marks.push(a.note);
+      if (a.note) marks.push(esc(a.note));
 
       return '<span class="author">' + name +
              (marks.length ? '<sup>' + marks.join(',') + '</sup>' : '') + '</span>';
@@ -71,11 +89,11 @@
     var affs = cfg.affiliations || [];
     if (affs.length) {
       show($('affiliations'), affs.map(function (a, i) {
-        return (multiAff ? '<sup>' + (i + 1) + '</sup>' : '') + a.name;
+        return (multiAff ? '<sup>' + (i + 1) + '</sup>' : '') + esc(a.name);
       }).join('&nbsp;&nbsp; '));
     }
 
-    if (cfg.authorNotes) show($('author-notes'), cfg.authorNotes);
+    if (cfg.authorNotes) show($('author-notes'), esc(cfg.authorNotes));
   }
 
   renderAuthors();
@@ -85,21 +103,20 @@
   var statusHost = $('status');
   if (statusHost && preset.badge) {
     statusHost.innerHTML = '<span class="badge" data-status="' +
-      (cfg.status || '') + '">' + preset.badge + '</span>';
+      esc(status) + '">' + esc(preset.badge) + '</span>';
   }
 
   /* ----------------------------------------------------------- links --- */
 
   function button(href, label, icon) {
     if (href) {
-      return '<a class="btn btn--active" href="' + href + '" target="_blank" rel="noopener">' +
-             icon + '<span>' + label + '</span></a>';
+      return '<a class="btn btn--active" href="' + esc(href) + '" target="_blank" rel="noopener">' +
+             icon + '<span>' + esc(label) + '</span></a>';
     }
     return '<span class="btn btn--pending" aria-disabled="true">' +
-           icon + '<span>' + label + '</span></span>';
+           icon + '<span>' + esc(label) + '</span></span>';
   }
 
-  var links = cfg.links || {};
   var linkHost = $('links');
   if (linkHost) {
     linkHost.innerHTML = [
@@ -110,10 +127,12 @@
 
   /* ------------------------------------------------- optional status --- */
   /* enabled 为 false 或 src 为空时，整个 <section> 保持 hidden，
-     不占据任何空间、不留空框。 */
+     不占据任何空间、不留空框。
+     已正式公开后，“等待公开”的提交回执截图不再适用，一律不显示，
+     这样切到 published 时不用记得回来关掉它。 */
 
   var note = cfg.statusNote || {};
-  if (note.enabled && note.src) {
+  if (note.enabled && note.src && status !== 'published') {
     var img = $('status-note-img');
     var cap = $('status-note-caption');
     var sec = $('status-note');
@@ -132,7 +151,7 @@
 
   var footNote = $('footer-note');
   if (footNote) {
-    footNote.textContent = (cfg.status === 'published')
+    footNote.textContent = (status === 'published')
       ? '\u00A9 ' + new Date().getFullYear() + ' The ResOT Authors.'
       : '\u00A9 ' + new Date().getFullYear() +
         ' The ResOT Authors. This page is updated as the preprint becomes publicly available.';
