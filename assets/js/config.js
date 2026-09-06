@@ -85,15 +85,19 @@ window.RESOT_CONFIG = {
    *    换新版论文：把新 PDF 覆盖到下面 src 指向的那个文件即可（保持文件名不变），
    *    这里和代码都不用改。src 是全站唯一写死 PDF 路径的地方。
    *
-   *    enabled 为 false 或文件缺失时，按钮不出现，页面不留任何痕迹。
+   *    note 是按钮下方的一行版本说明，用来讲清楚这份 PDF 是哪个版本。
+   *    留空字符串则不显示这一行。换成非匿名 preprint 版时记得同步改这句话。
    *
-   *    ★ links.arxiv 一填上，这个按钮会自动消失 —— arXiv 官方页面永远优先，
+   *    enabled 为 false 或文件缺失时，按钮和说明都不出现，页面不留任何痕迹。
+   *
+   *    ★ links.arxiv 一填上，按钮和说明会一起自动消失 —— arXiv 官方页面永远优先，
    *      本地 PDF 只是公开前的过渡。那时记得把 PDF 文件也从仓库里删掉。
    * ------------------------------------------------------------------- */
   paperPdf: {
     enabled: true,
     src: 'assets/paper/resot-paper.pdf',
     label: 'Paper (PDF)',
+    note: 'The linked PDF is the version submitted to ICLR 2027, anonymized for double-blind review.',
   },
 
   /* ---------------------------------------------------------------------

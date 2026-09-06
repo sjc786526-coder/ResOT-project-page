@@ -133,13 +133,20 @@ venue: 'Submitted to ICLR 2027',
 arXiv 还没公开时，页面上会多出一个 **Paper (PDF)** 按钮，点开在新标签页里
 用浏览器自带的阅读器打开论文，效果和 arXiv 的 PDF 链接一样。
 
+按钮下方有一行版本说明，讲清楚这份 PDF 是哪个版本 —— 当前是 ICLR 正式投稿的双盲评审版，
+所以文件里作者栏是匿名的，这行字用来解释这一点，避免读者误解。
+
 ```js
 paperPdf: {
   enabled: true,
   src: 'assets/paper/resot-paper.pdf',
   label: 'Paper (PDF)',
+  note: 'The linked PDF is the version submitted to ICLR 2027, anonymized for double-blind review.',
 },
 ```
+
+`note` 留成空字符串 `''` 则只显示按钮、不显示说明。
+**换成非匿名的 preprint 版本时，记得把这句话一起改掉**，否则说明会和文件对不上。
 
 **换新版论文**：把新 PDF 覆盖到 `assets/paper/resot-paper.pdf`（文件名保持不变），
 提交推送即可，`config.js` 和代码都不用动 —— `src` 是全站唯一写死 PDF 路径的地方。
@@ -171,8 +178,9 @@ python -m http.server 8080
   其余所有资源引用均为相对路径。
 - 本仓库包含一份论文 PDF（`assets/paper/resot-paper.pdf`），仅作为 arXiv 公开前的过渡入口。
   arXiv 正式公开后，官方页面优先，按钮会自动撤下，届时请把该 PDF 文件一并从仓库删除。
-- 当前这份 PDF 是 ICLR 双盲投稿版（首页页眉 "Under review as a conference paper at ICLR 2027"，
-  作者栏 "Anonymous authors"）。如果之后编译出署真实作者的 preprint 版本，直接覆盖同名文件即可。
+- 当前这份 PDF 是 ICLR 正式投稿的双盲评审版（首页页眉 "Under review as a conference paper at
+  ICLR 2027"，作者栏 "Anonymous authors"）。页面上已通过 `paperPdf.note` 明确标注了这一点。
+  如果之后编译出署真实作者的 preprint 版本，覆盖同名文件并同步改掉 `note` 那句话即可。
 - 首页的 overview 配图可以点开看全分辨率原图，会在**新标签页**打开，
   看完直接关掉标签页即可回到主页，不会顶掉当前页面。
 - 页面上的所有科研信息以论文原文为准；未确定的信息保持占位，不做推测性填写。

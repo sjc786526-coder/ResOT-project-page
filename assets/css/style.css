@@ -184,6 +184,13 @@ a { color: var(--accent); }
   cursor: default;
 }
 
+.paper-note {
+  max-width: 44em;
+  margin: .85rem auto 0;
+  font-size: .875rem;
+  color: var(--muted);
+}
+
 .noscript {
   max-width: 40em;
   margin: 1.5rem auto 0;

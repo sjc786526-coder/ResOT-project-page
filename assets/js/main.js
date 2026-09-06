@@ -139,6 +139,9 @@
     ].join('');
   }
 
+  /* PDF 的版本说明与按钮同进同退：按钮不出现时这行也不出现。 */
+  if (showPdf && pdf.note) show($('paper-note'), esc(pdf.note));
+
   /* ------------------------------------------------- optional status --- */
   /* enabled 为 false 或 src 为空时，整个 <section> 保持 hidden，
      不占据任何空间、不留空框。
