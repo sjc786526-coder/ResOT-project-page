@@ -8,10 +8,14 @@
   var links = cfg.links || {};
   var presets = cfg.statusPresets || {};
 
-  /* status 与 links.arxiv 必须自洽：只写了 'published' 却没填链接时，
-     退回“已提交、待公开”，页面不做没有依据的断言。 */
+  /* status 与 links.arxiv 必须自洽，两个方向都要管：
+       写了 'published' 却没填链接 -> 退回“已提交、待公开”，不做没有依据的断言；
+       填了链接却忘了改 status -> 视为已公开（arXiv 的 abs 页面只在正式公开后存在）。
+     status 拼错或漏填时归一到最保守的 'coming-soon'，不会出现徽章文字和配色对不上的情况。 */
   var status = cfg.status;
-  if (status === 'published' && !links.arxiv) status = 'arxiv-pending';
+  if (!presets[status]) status = 'coming-soon';
+  if (links.arxiv) status = 'published';
+  else if (status === 'published') status = 'arxiv-pending';
 
   var preset = presets[status] || presets['coming-soon'] || {};
 
