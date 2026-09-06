@@ -123,12 +123,12 @@
            icon + '<span>' + esc(label) + '</span></span>';
   }
 
-  /* arXiv 公开前提供本地 PDF 直链，供读者先看到论文本体。
-     links.arxiv 一填上（status 变成 published）这个按钮就自动撤下 ——
-     官方 arXiv 页面永远优先，本地 PDF 只是过渡手段。
+  /* 本地论文 PDF 直链（当前是 ICLR 投稿版）。
+     它和 arXiv preprint 是两份不同的东西，因此 arXiv 公开后这个按钮不会撤下，
+     两者并列显示，各自指向各自的版本。
      未启用或没填 src 时整个按钮不出现，不留空位。 */
   var pdf = cfg.paperPdf || {};
-  var showPdf = !!(pdf.enabled && pdf.src && status !== 'published');
+  var showPdf = !!(pdf.enabled && pdf.src);
 
   var linkHost = $('links');
   if (linkHost) {
