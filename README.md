@@ -16,12 +16,13 @@ assets/js/config.js              ★ 唯一需要长期维护的文件
 assets/js/main.js                渲染逻辑（一般不用改）
 assets/img/resot-overview.png    论文 Figure 2（method overview）
 assets/img/favicon.svg           站点图标
+assets/paper/resot-paper.pdf     论文 PDF（arXiv 公开前的过渡，公开后应删除）
 .nojekyll                        关闭 GitHub Pages 的 Jekyll 处理
 ```
 
 ---
 
-## 如何更新（都只改 `assets/js/config.js`）
+## 如何更新（基本只改 `assets/js/config.js`，换 PDF 时覆盖同名文件）
 
 改完后：
 
@@ -114,11 +115,42 @@ statusNote: {
 
 ### 5. 公开投稿去向（可选）
 
+当前值：
+
 ```js
-venue: 'Under review at ICLR 2027',
+venue: 'Submitted to ICLR 2027',
 ```
 
 留 `null` 则该行完全不显示。
+
+注意 `venue` 和 `status` 是两件独立的事：投稿去向不代表论文已在 arXiv 公开，
+改其中一个不会影响另一个。
+
+---
+
+### 6. 论文 PDF 直链（arXiv 公开前的过渡）
+
+arXiv 还没公开时，页面上会多出一个 **Paper (PDF)** 按钮，点开在新标签页里
+用浏览器自带的阅读器打开论文，效果和 arXiv 的 PDF 链接一样。
+
+```js
+paperPdf: {
+  enabled: true,
+  src: 'assets/paper/resot-paper.pdf',
+  label: 'Paper (PDF)',
+},
+```
+
+**换新版论文**：把新 PDF 覆盖到 `assets/paper/resot-paper.pdf`（文件名保持不变），
+提交推送即可，`config.js` 和代码都不用动 —— `src` 是全站唯一写死 PDF 路径的地方。
+
+> 覆盖同名文件后浏览器可能还拿着旧版缓存，自己确认时按 Ctrl+F5 强制刷新。
+
+**关掉它**：`enabled` 改成 `false`，按钮直接消失，页面不留空位。
+
+**arXiv 公开后会自动撤下**：只要 `links.arxiv` 填上真实地址，这个按钮就不再渲染，
+不需要回来改 `enabled`。但此时请**同时把 `assets/paper/resot-paper.pdf` 从仓库里删掉** ——
+代码只是不再链接它，文件本身还在仓库里公开可访问。
 
 ---
 
@@ -137,7 +169,10 @@ python -m http.server 8080
 
 - `index.html` 中的 `og:url` / `og:image` 使用绝对地址，**仅在仓库改名或迁移时**需要同步更新，
   其余所有资源引用均为相对路径。
-- 本仓库不包含论文 PDF。paper 链接一律指向 arXiv 官方页面。
+- 本仓库包含一份论文 PDF（`assets/paper/resot-paper.pdf`），仅作为 arXiv 公开前的过渡入口。
+  arXiv 正式公开后，官方页面优先，按钮会自动撤下，届时请把该 PDF 文件一并从仓库删除。
+- 当前这份 PDF 是 ICLR 双盲投稿版（首页页眉 "Under review as a conference paper at ICLR 2027"，
+  作者栏 "Anonymous authors"）。如果之后编译出署真实作者的 preprint 版本，直接覆盖同名文件即可。
 - 首页的 overview 配图可以点开看全分辨率原图，会在**新标签页**打开，
   看完直接关掉标签页即可回到主页，不会顶掉当前页面。
 - 页面上的所有科研信息以论文原文为准；未确定的信息保持占位，不做推测性填写。

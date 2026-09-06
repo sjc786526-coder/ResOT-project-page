@@ -42,7 +42,9 @@
     arxiv: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">' +
            '<path d="M9.5 1H4a1.5 1.5 0 0 0-1.5 1.5v11A1.5 1.5 0 0 0 4 15h8a1.5 1.5 0 0 0 1.5-1.5V5L9.5 1Zm0 1.6L11.9 5H9.5V2.6ZM5 8h6v1.1H5V8Zm0 2.6h6v1.1H5v-1.1Z"/></svg>',
     code:  '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">' +
-           '<path d="M5.6 3.3 1 8l4.6 4.7.9-.9L2.8 8l3.7-3.8-.9-.9Zm4.8 0-.9.9L13.2 8l-3.7 3.8.9.9L15 8l-4.6-4.7Z"/></svg>'
+           '<path d="M5.6 3.3 1 8l4.6 4.7.9-.9L2.8 8l3.7-3.8-.9-.9Zm4.8 0-.9.9L13.2 8l-3.7 3.8.9.9L15 8l-4.6-4.7Z"/></svg>',
+    paper: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">' +
+           '<path d="M1.4 2.5c1.9-.6 3.9-.5 5.8.4v10.6c-1.9-.9-3.9-1-5.8-.4V2.5Zm7.4.4c1.9-.9 3.9-1 5.8-.4v10.6c-1.9-.6-3.9-.5-5.8.4V2.9Z"/></svg>'
   };
 
   /* ---------------------------------------------------------- venue ---- */
@@ -121,9 +123,17 @@
            icon + '<span>' + esc(label) + '</span></span>';
   }
 
+  /* arXiv 公开前提供本地 PDF 直链，供读者先看到论文本体。
+     links.arxiv 一填上（status 变成 published）这个按钮就自动撤下 ——
+     官方 arXiv 页面永远优先，本地 PDF 只是过渡手段。
+     未启用或没填 src 时整个按钮不出现，不留空位。 */
+  var pdf = cfg.paperPdf || {};
+  var showPdf = !!(pdf.enabled && pdf.src && status !== 'published');
+
   var linkHost = $('links');
   if (linkHost) {
     linkHost.innerHTML = [
+      showPdf ? button(pdf.src, pdf.label || 'Paper (PDF)', ICON.paper) : '',
       button(links.arxiv, links.arxiv ? 'arXiv' : (preset.arxivButton || 'arXiv'), ICON.arxiv),
       button(links.code, links.code ? 'Code' : (cfg.codeButtonPending || 'Code'), ICON.code)
     ].join('');
