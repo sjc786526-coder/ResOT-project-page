@@ -105,6 +105,7 @@ a { color: var(--accent); }
   color: var(--fg-soft);
 }
 .authors a { text-decoration: none; border-bottom: 1px solid rgba(20, 84, 143, .3); }
+.authors .author { display: inline-block; }
 .authors a:hover { border-bottom-color: var(--accent); }
 .authors .sep { color: var(--muted); }
 .authors sup { font-size: .72em; padding-left: .1em; color: var(--muted); }

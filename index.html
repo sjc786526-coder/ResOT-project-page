@@ -62,7 +62,7 @@
     <!-- 全分辨率原图在新标签页打开：原页面不被替换，看完直接关掉标签页即可回来。 -->
     <a href="assets/img/resot-overview.png" target="_blank" rel="noopener"
        aria-label="Open the overview figure at full resolution in a new tab">
-      <img src="assets/img/resot-overview.png" width="2200" height="1113" decoding="async"
+      <img src="assets/img/resot-overview.png" width="2262" height="1164" decoding="async"
            alt="Overview of ResOT in three stages: calibration and residual subspace extraction, Gaussian optimal transport in residual coordinates, and inference-time residual repair.">
     </a>
     <figcaption>Overview of <strong>ResOT</strong>.</figcaption>
@@ -72,20 +72,19 @@
     <h2 id="abstract-h">Abstract</h2>
     <p class="abstract-body">
       Object hallucination in large vision-language models (LVLMs) remains a major obstacle to
-      trustworthy generation. An intuitive mitigation strategy is to suppress the components in
-      the representations that are associated with hallucinations. However, since these components
+      trustworthy generation. An intuitive mitigation strategy is to suppress components of hidden
+      representations associated with hallucinations. However, since these components
       may also contain useful visual-semantic information, directly suppressing them can impair the
       model&rsquo;s multimodal capabilities. We therefore propose <strong>ResOT</strong>, a
-      training-free inference-time method that replaces suppression with localized distribution
-      repair. Specifically, ResOT confines repair to a low-dimensional residual subspace that
-      captures hallucination-associated structures not explained by the principal subspace of
-      faithful representations. In this subspace, a closed-form Gaussian optimal transport (OT) map
-      aligns the hallucinated distribution with the faithful one while minimizing displacement. At
-      inference, ResOT adjusts the repair strength for each token state based on its hallucination
-      tendency. Across multiple benchmarks and three representative LVLMs, ResOT achieves the best
+      training-free inference-time method that repairs representations through localized distribution
+      alignment. Specifically, ResOT confines the intervention to a low-dimensional residual subspace
+      that captures hallucination-associated structures not explained by the dominant faithful subspace.
+      Within this subspace, ResOT uses Gaussian optimal transport (OT) to define repair targets that
+      align the hallucinated distribution with the faithful one while minimizing changes to the
+      original representations. During inference, ResOT adaptively controls how far each token state
+      moves toward its OT target. Across multiple benchmarks and three representative LVLMs, ResOT achieves the best
       overall performance in hallucination mitigation and captioning among the compared methods. It
-      also improves multimodal performance over the corresponding vanilla LVLMs while incurring low
-      inference overhead.
+      also improves multimodal performance over the corresponding vanilla LVLMs.
     </p>
   </section>
 

@@ -40,23 +40,27 @@ window.RESOT_CONFIG = {
    * 3. 作者与单位
    *    authors 为空数组时，页面显示一句中性占位说明，不会留下空白。
    *
-   *    示例：
-   *      affiliations: [
-   *        { id: 1, name: 'Example University' },
-   *        { id: 2, name: 'Example Lab' },
-   *      ],
-   *      authors: [
-   *        { name: 'First Author',  affiliations: [1], url: 'https://...', note: '*' },
-   *        { name: 'Second Author', affiliations: [1, 2] },
-   *        { name: 'Third Author',  affiliations: [2], note: '†' },
-   *      ],
-   *      authorNotes: '* Equal contribution.  † Corresponding author.',
+   *    数组顺序就是署名顺序；无共同第一作者。
+   *    Xingping Dong 是第二作者兼唯一通讯作者，以 † 标记。
+   *    姓名链接指向 OpenReview 个人页，不使用作者的其他论文地址。
    *
    *    单位只有一个时，可以把 affiliations 留成一条，authors 里写 [1]。
    * ------------------------------------------------------------------- */
-  affiliations: [],
-  authors: [],
-  authorNotes: '',
+  affiliations: [
+    { id: 1, name: 'School of Computer Science, Wuhan University' },
+    { id: 2, name: 'Institute of Automation, Chinese Academy of Sciences' },
+  ],
+  authors: [
+    { name: 'Chen Zhao', affiliations: [1], url: 'https://openreview.net/profile?id=~chen_zhao31' },
+    { name: 'Xingping Dong', affiliations: [1], url: 'https://openreview.net/profile?id=~Xingping_Dong1', note: '†' },
+    { name: 'Chong Wang', affiliations: [1], url: 'https://openreview.net/profile?id=~Chong_Wang29' },
+    { name: 'Liang Peng', affiliations: [1], url: 'https://openreview.net/profile?id=~Liang_Peng7' },
+    { name: 'Jiachun Shi', affiliations: [1], url: 'https://openreview.net/profile?id=~Jiachun_Shi1' },
+    { name: 'Zhen Lei', affiliations: [2], url: 'https://openreview.net/profile?id=~Zhen_Lei1' },
+    { name: 'Ran He', affiliations: [2], url: 'https://openreview.net/profile?id=~Ran_He1' },
+    { name: 'Bo Du', affiliations: [1], url: 'https://openreview.net/profile?id=~Bo_Du3' },
+  ],
+  authorNotes: '† Corresponding author: Xingping Dong (xingping.dong@gmail.com).',
 
   /* ---------------------------------------------------------------------
    * 4. 投稿去向（可选）

@@ -74,7 +74,14 @@ links: {
 },
 ```
 
-### 3. 补充作者与单位
+### 3. 维护作者与单位
+
+当前署名顺序为 Chen Zhao、Xingping Dong、Chong Wang、Liang Peng、Jiachun Shi、
+Zhen Lei、Ran He、Bo Du。Xingping Dong 是第二作者兼唯一通讯作者，以 `†` 标记；
+没有共同第一作者。雷震和赫然所属单位为中国科学院自动化研究所，其余作者为武汉大学计算机学院。
+姓名链接使用 OpenReview 个人页，通讯作者邮箱显示在作者说明中。
+
+后续修改时保留 `authors` 的署名顺序，`affiliations` 引用对应单位的 `id`。以下仅为字段格式示例：
 
 ```js
 affiliations: [
@@ -82,11 +89,11 @@ affiliations: [
   { id: 2, name: 'Example Lab' },
 ],
 authors: [
-  { name: 'First Author',  affiliations: [1], url: 'https://homepage', note: '*' },
-  { name: 'Second Author', affiliations: [1, 2] },
-  { name: 'Third Author',  affiliations: [2], note: '†' },
+  { name: 'First Author',  affiliations: [1], url: 'https://homepage' },
+  { name: 'Second Author', affiliations: [1], note: '†' },
+  { name: 'Third Author',  affiliations: [2] },
 ],
-authorNotes: '* Equal contribution.  † Corresponding author.',
+authorNotes: '† Corresponding author: Second Author.',
 ```
 
 - `authors` 为空数组时，页面显示一句中性占位说明，不会留空白。
@@ -161,6 +168,10 @@ paperPdf: {
 
 **换新版论文**：把新 PDF 覆盖到 `assets/paper/resot-paper.pdf`（文件名保持不变），
 提交推送即可，`config.js` 和代码都不用动 —— `src` 是全站唯一写死 PDF 路径的地方。
+
+当前 PDF 更新于 2026-09-07，仍为匿名双盲投稿版。网站署名由作者提供，与 PDF 中的匿名作者栏分别维护。
+换 PDF 时也要核对网页摘要和 overview 图：若新版改动了对应内容，须同步更新
+`index.html` 的摘要与 `assets/img/resot-overview.png`，避免网页混用旧论文内容。
 
 > 覆盖同名文件后浏览器可能还拿着旧版缓存，自己确认时按 Ctrl+F5 强制刷新。
 
