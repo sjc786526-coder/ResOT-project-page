@@ -66,8 +66,10 @@ window.RESOT_CONFIG = {
    * 4. 投稿去向（可选）
    *    留 null 则完全不显示。
    *    注意这与 arXiv 状态是两件事：投稿去向不代表论文已公开，措辞不要混用。
+   *    当前摘要已提交；投稿进度以实际情况为准，与 PDF 的版本格式分别维护。
+   *    全文提交确认后，同步核对 paperPdf.label、note 与实际提交的 PDF 版本。
    * ------------------------------------------------------------------- */
-  venue: 'Submitted to ICLR 2027',
+  venue: 'ICLR 2027 — Abstract submitted',
 
   /* ---------------------------------------------------------------------
    * 5. 可选的状态截图（例如 arXiv 提交回执）
@@ -82,7 +84,7 @@ window.RESOT_CONFIG = {
   },
 
   /* ---------------------------------------------------------------------
-   * 6. 论文 PDF 直链（当前是 ICLR 投稿版，可选）
+   * 6. 论文 PDF 直链（当前是面向 ICLR 的匿名稿件，可选）
    *
    *    点开后由浏览器自带的 PDF 阅读器显示，和 arXiv 上的 PDF 链接一样。
    *
@@ -93,10 +95,10 @@ window.RESOT_CONFIG = {
    *    这里和代码都不用改。src 是全站唯一写死 PDF 路径的地方。
    *
    *    label 是按钮文案，必填。arXiv 按钮日后也会出现，两者并排时按钮本身要能分辨，
-   *    所以这里点名是 ICLR 投稿版，而不是笼统的 "Paper"。
+   *    所以这里点名是 ICLR 稿件，而不是笼统的 "Paper"。
    *    留空则整个按钮不渲染（代码里没有兜底文案，见 main.js 的说明）。
    *
-   *    note 是按钮下方的一行版本说明，补充按钮放不下的信息（这里是“作者匿名”）。
+   *    note 是按钮下方的版本说明，说明这是最新可提交的双盲匿名版本。
    *    留空字符串则不显示这一行。换成非匿名 preprint 版时，label 和 note 都要改。
    *
    *    enabled 为 false 或文件缺失时，按钮和说明都不出现，页面不留任何痕迹。
@@ -104,8 +106,8 @@ window.RESOT_CONFIG = {
   paperPdf: {
     enabled: true,
     src: 'assets/paper/resot-paper.pdf',
-    label: 'ICLR Submission (PDF)',
-    note: 'Anonymized version submitted to ICLR 2027 for double-blind review.',
+    label: 'ICLR Manuscript (PDF)',
+    note: 'Latest submission-ready version for ICLR 2027, anonymized for double-blind review.',
   },
 
   /* ---------------------------------------------------------------------

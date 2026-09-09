@@ -16,7 +16,7 @@ assets/js/config.js              ★ 唯一需要长期维护的文件
 assets/js/main.js                渲染逻辑（一般不用改）
 assets/img/resot-overview.png    论文 Figure 2（method overview）
 assets/img/favicon.svg           站点图标
-assets/paper/resot-paper.pdf     论文 PDF（当前为 ICLR 投稿版）
+assets/paper/resot-paper.pdf     论文 PDF（当前为 ICLR 待提交的双盲匿名版）
 .nojekyll                        关闭 GitHub Pages 的 Jekyll 处理
 ```
 
@@ -125,36 +125,41 @@ statusNote: {
 当前值：
 
 ```js
-venue: 'Submitted to ICLR 2027',
+venue: 'ICLR 2027 — Abstract submitted',
 ```
 
 留 `null` 则该行完全不显示。
+
+当前已完成摘要提交，PDF 是最新可提交的双盲匿名版本。
+全文正式提交后，先确认站点 PDF 与实际提交的版本一致，再同步更新 `venue`、
+`paperPdf.label` 和 `paperPdf.note`，保持实际进度、版本说明与文件一致。
+投稿状态仅用文字说明，不公开私有投稿链接、内部编号或邮件截图。
 
 注意 `venue` 和 `status` 是两件独立的事：投稿去向不代表论文已在 arXiv 公开，
 改其中一个不会影响另一个。
 
 ---
 
-### 6. 论文 PDF 直链（当前为 ICLR 投稿版）
+### 6. 论文 PDF 直链（当前为 ICLR 待提交的双盲匿名版）
 
-页面上有一个 **ICLR Submission (PDF)** 按钮，点开在新标签页里用浏览器自带的阅读器打开论文，
+页面上有一个 **ICLR Manuscript (PDF)** 按钮，点开在新标签页里用浏览器自带的阅读器打开论文，
 效果和 arXiv 的 PDF 链接一样。
 
-按钮文案点名了是 ICLR 投稿版而不是笼统的 "Paper" —— 因为 arXiv 公开后两个按钮会并排，
+按钮文案点名了是 ICLR 稿件而不是笼统的 "Paper" —— 因为 arXiv 公开后两个按钮会并排，
 读者需要一眼看出哪个是哪个。
 
-这份 PDF 和 arXiv preprint 是两份不同的东西（一个是投给 ICLR 的版本，一个是 arXiv 预印本），
+这份 PDF 和 arXiv preprint 是两份不同的东西（一个是面向 ICLR 的稿件，一个是 arXiv 预印本），
 所以 **arXiv 公开之后这个按钮不会消失**，两个按钮会并列显示，各指各的版本。
 
-按钮下方有一行版本说明，讲清楚这份 PDF 是哪个版本 —— 当前是 ICLR 正式投稿的双盲评审版，
-所以文件里作者栏是匿名的，这行字用来解释这一点，避免读者误解。
+按钮下方有版本说明，讲清楚这份 PDF 是面向 ICLR 2027 的最新可提交版本，按双盲格式匿名。
+匿名作者栏不影响本站单独展示真实署名。
 
 ```js
 paperPdf: {
   enabled: true,
   src: 'assets/paper/resot-paper.pdf',
-  label: 'ICLR Submission (PDF)',
-  note: 'Anonymized version submitted to ICLR 2027 for double-blind review.',
+  label: 'ICLR Manuscript (PDF)',
+  note: 'Latest submission-ready version for ICLR 2027, anonymized for double-blind review.',
 },
 ```
 
@@ -169,7 +174,8 @@ paperPdf: {
 **换新版论文**：把新 PDF 覆盖到 `assets/paper/resot-paper.pdf`（文件名保持不变），
 提交推送即可，`config.js` 和代码都不用动 —— `src` 是全站唯一写死 PDF 路径的地方。
 
-当前 PDF 更新于 2026-09-07，仍为匿名双盲投稿版。网站署名由作者提供，与 PDF 中的匿名作者栏分别维护。
+当前 PDF 更新于 2026-09-07，是最新可提交的双盲匿名版（投稿阶段于 2026-09-10 更正）。
+网站署名由作者提供，与 PDF 中的匿名作者栏分别维护。
 换 PDF 时也要核对网页摘要和 overview 图：若新版改动了对应内容，须同步更新
 `index.html` 的摘要与 `assets/img/resot-overview.png`，避免网页混用旧论文内容。
 
@@ -195,11 +201,12 @@ python -m http.server 8080
 
 - `index.html` 中的 `og:url` / `og:image` 使用绝对地址，**仅在仓库改名或迁移时**需要同步更新，
   其余所有资源引用均为相对路径。
-- 本仓库包含一份论文 PDF（`assets/paper/resot-paper.pdf`），是 ICLR 正式投稿的双盲评审版
+- 本仓库包含一份论文 PDF（`assets/paper/resot-paper.pdf`），是面向 ICLR 2027 的最新可提交双盲匿名版
   （首页页眉 "Under review as a conference paper at ICLR 2027"，作者栏 "Anonymous authors"）。
-  页面上已通过 `paperPdf.note` 明确标注了这一点。
+  PDF 页眉及匿名作者栏属于排版模板；页面投稿进度由 `venue` 单独维护。
+  页面上通过 `paperPdf.note` 说明其可提交状态及匿名格式。
 - 它与 arXiv preprint 是两份不同的东西，长期并列保留，arXiv 公开后也不撤下。
-  如果之后编译出署真实作者的 preprint 版本，覆盖同名文件并同步改掉 `note` 那句话即可。
+  如果之后编译出署真实作者的 preprint 版本，覆盖同名文件并同步改掉 `label` 和 `note`。
 - 首页的 overview 配图可以点开看全分辨率原图，会在**新标签页**打开，
   看完直接关掉标签页即可回到主页，不会顶掉当前页面。
 - 页面上的所有科研信息以论文原文为准；未确定的信息保持占位，不做推测性填写。

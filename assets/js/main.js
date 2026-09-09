@@ -123,7 +123,7 @@
            icon + '<span>' + esc(label) + '</span></span>';
   }
 
-  /* 本地论文 PDF 直链（当前是 ICLR 投稿版）。
+  /* 本地论文 PDF 直链（具体版本及投稿阶段由配置说明）。
      它和 arXiv preprint 是两份不同的东西，因此 arXiv 公开后这个按钮不会撤下，
      两者并列显示，各自指向各自的版本。
      enabled、src、label 缺任何一个都视为配置不完整，整个按钮不出现，不留空位。
